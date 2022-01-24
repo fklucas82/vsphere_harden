@@ -1,0 +1,2 @@
+- name: Add local service account user
+  import_tasks: add_user.yml

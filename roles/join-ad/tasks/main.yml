@@ -1,0 +1,2 @@
+- name: Join ia.wd.org Domain
+  import_tasks: join-ad.yml

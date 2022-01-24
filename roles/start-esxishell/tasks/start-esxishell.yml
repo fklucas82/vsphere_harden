@@ -1,0 +1,14 @@
+- name: Stop SSH service setting for listed ESXi Hosts
+  community.vmware.vmware_host_service_manager:
+    hostname: '{{ vcenter_hostname }}'
+    port: 443
+    username: '{{ vcenter_username }}'
+    password: '{{ vcenter_password }}'
+    esxi_hostname: '{{ item.esxi_hostname }}'
+    service_name: TSM
+    state: start
+    service_policy: off
+    validate_certs: no
+  with_items:
+   - '{{ esxi_hostnames }}'
+  delegate_to: localhost

@@ -1,0 +1,2 @@
+- name: Set lockdown mode to off
+  import_tasks: lockdown-off.yml

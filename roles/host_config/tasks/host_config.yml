@@ -1,0 +1,23 @@
+- name: Set Advanced Options
+  community.vmware.vmware_host_config_manager:
+    hostname: "{{ vcenter_hostname }}"
+    username: "{{ vcenter_username }}"
+    password: "{{ vcenter_password }}"
+    esxi_hostname: '{{ item.esxi_hostname }}'
+    validate_certs: no
+    options:
+      "UserVars.ESXiShellInteractiveTimeOut": 300
+      "UserVars.ESXiShellTimeOut": 1800
+      "UserVars.DcuiTimeOut": 1800
+      "UserVars.SuppressShellWarning": 0
+      "Security.AccountLockFailures": 3
+      "Security.AccountUnlockTime": 900
+      "Security.PasswordQualityControl": "similar=deny retry=3 min=disabled,disabled,disabled,disabled,8"
+      "DCUI.Access": "root, svcvmware, iwdlan"
+      "Net.BlockGuestBPDU": 1
+      "Config.HostAgent.plugins.solo.enableMob": false
+      "Syslog.global.logDir": '{{ hostlogs }}'
+      "Syslog.global.logDirUnique": true
+  with_items:
+  - '{{ esxi_hostnames }}'
+  delegate_to: localhost

@@ -1,0 +1,43 @@
+- name: Add local users to ESXi
+  community.vmware.vmware_local_user_manager:
+    hostname: '{{ item[0].esxi_hostname }}'
+    username: '{{ esxi_username }}'
+    password: '{{ esxi_password }}'
+    local_user_name: '{{ item[1].local_user_name }}'
+    local_user_password: '{{ item[1].local_user_password }}'
+    local_user_description: '{{ item[1].local_user_description }}'
+    state: present
+    validate_certs: no    
+  with_nested:
+   - '{{ esxi_hostnames }}'
+   - '{{ added_users }}'
+  delegate_to: localhost
+
+- name: Assign Admin permissions at root folder
+  community.vmware.vmware_object_role_permission:
+    hostname: '{{ item[0].esxi_hostname }}'
+    username: '{{ esxi_username }}'
+    password: '{{ esxi_password }}'
+    role: Admin
+    principal: '{{ item[1].local_user_name }}'
+    object_name: rootFolder
+    state: present
+    validate_certs: no
+  with_nested:
+   - '{{ esxi_hostnames }}'
+   - '{{ added_users }}'   
+  delegate_to: localhost
+
+- name: Assign ESX Admins permissions at ESXI host root folder
+  community.vmware.vmware_object_role_permission:
+    hostname: '{{ item.esxi_hostname }}'
+    username: '{{ esxi_username }}'
+    password: '{{ esxi_password}}'
+    role: Admin
+    group: '{{ group }}'
+    object_name: rootFolder
+    state: present
+    validate_certs: no
+  with_items:
+   - '{{ esxi_hostnames }}'
+  delegate_to: localhost

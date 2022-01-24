@@ -1,0 +1,12 @@
+- name: Enter listed hosts into lockdown mode
+  community.vmware.vmware_host_lockdown:
+    hostname: '{{ vcenter_hostname }}'
+    username: '{{ vcenter_username }}'
+    password: '{{ vcenter_password }}'
+    esxi_hostname: '{{ item.esxi_hostname }}'
+    state: present
+    validate_certs: false
+  with_items:
+   - '{{ esxi_hostnames }}'
+  delegate_to: localhost
+

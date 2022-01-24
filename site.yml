@@ -1,0 +1,36 @@
+---
+- hosts: all
+  gather_facts: false
+  roles:
+    - role: lockdown-off
+      tags: ['unlock']
+    - role: start-ssh
+      tags: ['ssh-all','ssh-start']
+    - role: start-esxishell
+      tags: ['start-esxishell','esxishell']
+    - role: join-ad
+      tags: ['AD']
+    - role: add_user
+      tags: ['user']
+    - role: host_config
+      tags: ['config']
+    - role: change_root
+      tags: ['root']
+    - role: lockdown
+      tags: ['lock']
+    - role: stop-esxishell
+      tags: ['stop-esxishell','esxishell']
+    - role: stop-ssh
+      tags: ['ssh-all','ssh-stop']
+      
+#all.yml is encrypted to protect credentials      
+#Disable Lockdown
+#Start SSH      
+#Add non-root local user as Administrator
+#Join hosts to AD
+#Configure Shell Timeout
+#Set DCUI.Access accounts
+#Set Password Requirements
+#Update Root with Compliant Password
+#Enable Lockdown Mode
+#Stop SSH

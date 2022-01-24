@@ -1,0 +1,2 @@
+- name: Stop ssh on all ESXi hosts
+  import_tasks: start-ssh.yml

@@ -1,0 +1,2 @@
+- name: Set esxi root credentials
+  import_tasks: change_root.yml

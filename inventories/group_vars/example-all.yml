@@ -1,0 +1,36 @@
+#encrypted with ansible-vault
+#vcenter administrator
+vcenter_username: administrator@vsphere.local
+vcenter_password: Example-Pass
+
+#service account for joining AD
+ad_user: serviceaccount
+ad_pass: 'Example-Pass'
+
+#ESXI root acct
+esxi_username: root
+esxi_password: "Example-Pass"
+new_esxi_password: "Example-Pass"
+
+vcenter_hostname: vcenterd.ia.wd.org
+
+#List of esxi hosts
+esxi_hostnames:
+ - { esxi_hostname: example1.contoso.org}
+ - { esxi_hostname: example2.contoso.org}
+ - { esxi_hostname: example3.contoso.org}
+ - { esxi_hostname: example4.contoso.org}
+
+
+added_users:          
+ - {  local_user_name: svcvmware, 
+      local_user_description: "VMware Service Account",
+      local_user_password: 'Example_Pass'}
+ - {  local_user_name: iwdlan, 
+      local_user_password: 'Example_Pass', 
+      local_user_description: "Infrastructure Team Account" }  
+
+group: "CONTOSO\\ESX Admins"
+
+hostlogs: "[log_volume] /hostlogs"
+

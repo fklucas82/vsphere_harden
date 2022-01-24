@@ -1,0 +1,12 @@
+- name: Update Root Credentials
+  community.vmware.vmware_local_user_manager:
+    hostname: '{{ item.esxi_hostname }}'
+    username: '{{ esxi_username }}'
+    password: '{{ esxi_password }}'
+    local_user_name: '{{ esxi_username }}'
+    local_user_password: '{{ new_esxi_password}}'
+    state: present
+    validate_certs: no    
+  with_items:
+   - '{{ esxi_hostnames }}'
+  delegate_to: localhost
